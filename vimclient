@@ -14,7 +14,7 @@ fi
 while read line; do
   PANE=$(echo "$line" | awk '{print $2}')
   TTY=$(echo "$line" | awk '{print $3}' | cut -c 6-)
-  if ps c -o 'state=,command=' -t "${TTY}" 2>/dev/null | egrep -qw '(vi|vim)'; then
+  if ps c -o 'stat=,command=' -t "${TTY}" 2>/dev/null | egrep -q '\+.*\bvim?\b'; then
     VIM_PANE=$PANE
     break;
   fi
