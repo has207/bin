@@ -22,8 +22,9 @@ done < <( tmux lsp -s -F '#{window_active} #{pane_id} #{pane_tty}' |grep ^1 )
 
 if [ ! -z $VIM_PANE ]; then
   if [ x"$1" != x ]; then
+    # add shell escapes
     FILENAME=$(echo $1 | sed 's/\ /\\ /g')
-    DIRECTORY=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+    DIRECTORY=$(echo $PWD |sed 's/\ /\\ /g')
     tmux send -t "$VIM_PANE" ":cd $DIRECTORY | e $FILENAME" C-m;
   fi;
   tmux select-pane -t $VIM_PANE
