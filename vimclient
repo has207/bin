@@ -25,7 +25,10 @@ if [ ! -z $VIM_PANE ]; then
     # add shell escapes
     FILENAME=$(echo $1 | sed 's/\ /\\ /g')
     DIRECTORY=$(echo $PWD |sed 's/\ /\\ /g')
-    tmux send -t "$VIM_PANE" ":cd $DIRECTORY | sp $FILENAME" C-m;
+    if [ x"$(echo $1 | cut -c 1)" != x"/" ]; then
+      FILENAME=$DIRECTORY/$FILENAME
+    fi
+    tmux send -t "$VIM_PANE" Escape ":sp $FILENAME" C-m;
   fi;
   tmux select-pane -t $VIM_PANE
   echo "[hit ENTER when ready]"
