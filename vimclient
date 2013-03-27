@@ -30,10 +30,15 @@ if [ ! -z $VIM_PANE ]; then
     fi
     tmux send -t "$VIM_PANE" Escape ":sp $FILENAME" C-m;
   fi;
-  tmux select-pane -t $VIM_PANE
-  echo "[hit ENTER when ready]"
-  read
-  sleep 1  # give vim a chance to save the file
+  tmux select-pane -t "$VIM_PANE"
+  # if there is no file then just jump to vim
+  # otherwise assume the process that spawned this cares about the contents having
+  # been updated before we return, so wait until editing is done.
+  if [ ! -z $FILENAME ]; then
+    echo "[hit ENTER when ready]"
+    read
+    sleep 1  # give vim a chance to save the file
+  fi
 else
   vi -X "$1"
 fi
