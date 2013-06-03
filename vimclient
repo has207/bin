@@ -28,7 +28,7 @@ if [ ! -z $VIM_PANE ]; then
     if [ x"$(echo $1 | cut -c 1)" != x"/" ]; then
       FILENAME=$DIRECTORY/$FILENAME
     fi
-    tmux send -t "$VIM_PANE" Escape ":sp $FILENAME" C-m;
+    tmux send -t "$VIM_PANE" C-w l Escape ":sp $FILENAME" C-m;
   fi;
   tmux select-pane -t "$VIM_PANE"
   # if there is no file then just jump to vim
