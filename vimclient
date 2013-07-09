@@ -7,7 +7,7 @@
 
 # make sure we're inside a tmux session
 if [ x"$TMUX_PANE" = x ]; then
-  vi -X "$1"
+  vim -X "$1"
   exit $?
 fi
 
@@ -40,5 +40,5 @@ if [ ! -z $VIM_PANE ]; then
     sleep 1  # give vim a chance to save the file
   fi
 else
-  vi -X "$1"
+  vim -X "$1"
 fi
