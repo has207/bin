@@ -37,7 +37,7 @@ if [ ! -z $VIM_PANE ]; then
   if [ ! -z $FILENAME ]; then
     echo "[hit ENTER when ready]"
     read
-    sleep 1  # give vim a chance to save the file
+    sleep 0.3  # give vim a chance to save the file
   fi
 else
   vim -X "$1"
